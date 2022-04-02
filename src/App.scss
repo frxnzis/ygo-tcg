@@ -50,8 +50,7 @@
 .hover14 figure::before {
 	position: absolute;
   margin-top: 2%;
-
-	left: -10%;
+	left: 0%;
 	z-index: 2;
 	display: block;
 	content: '';
@@ -59,21 +58,21 @@
 	height: 100%;
 	background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
 	background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
-	-webkit-transform: skewX(95deg);
-	transform: skewX(-15deg);
+	-webkit-transform: skewX(5deg);
+	transform: skewX(-25deg);
 }
 .hover14 figure:hover::before {
-	-webkit-animation: shine .95s;
-	animation: shine .95s;
+	-webkit-animation: shine 1s;
+	animation: shine .8s;
 }
 @-webkit-keyframes shine {
 	100% {
-		left: 25%;
+		left: 45%;
 	}
 }
 @keyframes shine {
 	100% {
-		left: 55%;
+		left: 30%;
 	}
 }
 

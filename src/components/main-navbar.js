@@ -16,9 +16,9 @@ const Search = styled('div')(({ theme }) => ({
     },
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-        marginLeft: 'auto',
+        marginLeft: theme.spacing(40),
         marginRight: 'auto',
-        width: 500,
+        width: 400,
     },
     textAlign: 'center'
 
@@ -101,9 +101,7 @@ export const MainNavbar = (props) => {
                         <MenuIcon />
                     </IconButton>
                     */}
-                    <Typography
-                        variant="h6"
-                    >
+                    <Typography variant="h6">
                         Yu-Gi-Oh! Project
                     </Typography>
                     <Search>

@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import './App.scss';
 
 const MainLayoutRoot = styled('div')(({ theme }) => ({
-  backgroundColor: 'white',
+  backgroundColor: '#efefef',
   height: '100%',
   paddingTop: 0
 }));
