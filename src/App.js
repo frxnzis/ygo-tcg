@@ -6,13 +6,13 @@ import { styled } from '@mui/material/styles';
 import './App.scss';
 
 const MainLayoutRoot = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: 'white',
   height: '100%',
   paddingTop: 0
 }));
 
 const ContentLayout = styled('div')(({ theme }) => ({
-
+  height: '100%',
   margin: 40
 }));
 

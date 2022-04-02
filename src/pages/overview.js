@@ -53,8 +53,16 @@ export const Overview = (props) => {
                     TransitionComponent={Transition}
                     keepMounted
                     onClose={handleClose}
+                    PaperProps={{
+                        style: {
+                            backgroundColor: '#30303099',
+                            boxShadow: 'none',
+                            borderRadius: '15px',
+                            border: '1px solid #555555'
+                        },
+                    }}
                 >
-                    <DialogContent className={'row'}>
+                    <DialogContent className={'row'} variant="outlined">
                         <div className={'col-12 col-md-4 text-center'}>
                             <img
                                 src={`${currentCard?.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format`}
@@ -66,46 +74,43 @@ export const Overview = (props) => {
                             />
                         </div>
                         <div className={'col-12 col-md-8 text-left'}>
-
                             <DialogContentText
                                 sx={{
-                                    fontSize: '1.3rem', margin: 1, padding: 1, borderRadius: '10px',
-                                    border: '2px solid lightgray'
+                                    fontSize: '1.4rem', margin: 1, borderRadius: '10px', paddingY: 1, paddingX: 2,
+                                    border: '1px solid #404040', color: 'white', background: '#00000099',
                                 }}>
-                                <b> ​ ​{currentCard?.name}</b>
-
+                                <b>{currentCard?.name}</b>
                             </DialogContentText>
 
                             <DialogContentText
                                 sx={{
-                                    fontSize: '1.1rem', margin: 1, marginTop: 2, padding: 1, borderRadius: '10px',
-                                    border: '2px solid lightgray'
+                                    fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
+                                    border: '1px solid #404040', color: 'white', background: '#00000099',
                                 }}>
-
                                 🔸 {currentCard?.type} &nbsp;
                                 🔹 {currentCard?.race} &nbsp;
                                 <b>{currentCard?.level > 0 ? '​​​​ ​​​​ ​✪ ​' : ''}</b>
-                                {currentCard?.level > 0 ? currentCard.level : ''} &nbsp;
+                                {currentCard?.level > 0 ? currentCard.level : ''} &nbsp; &nbsp;
                                 <b>{currentCard?.attribute ? '✧ ' : ''}</b>
                                 {currentCard?.attribute ? currentCard.attribute : ''}
 
                             </DialogContentText>
-                            {currentCard?.atk ?
+                            {currentCard?.atk >= 0 ?
                                 <DialogContentText
                                     sx={{
-                                        fontSize: '1.1rem', margin: 1, marginTop: 2, padding: 1, borderRadius: '10px',
-                                        border: '2px solid lightgray'
+                                        fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
+                                        border: '1px solid #404040', color: 'white', background: '#00000099',
                                     }}>
-                                    &nbsp;
+
                                     <b> ⚔️ {currentCard?.atk}</b> &nbsp; &nbsp;
-                                    <b>{currentCard?.def ? '🛡 ' + currentCard?.def : ''}</b>
+                                    <b>{currentCard?.def >= 0 ? '🛡 ' + currentCard?.def : ''}</b>
                                 </DialogContentText>
                                 : null
                             }
                             <DialogContentText
                                 sx={{
-                                    fontSize: '1.1rem', margin: 1, marginTop: 2, padding: 1, borderRadius: '10px',
-                                    border: '2px solid lightgray'
+                                    fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
+                                    border: '1px solid #404040', color: 'white', background: '#00000099',
                                 }}>
                                 {currentCard?.desc}
                             </DialogContentText>
@@ -117,19 +122,22 @@ export const Overview = (props) => {
                 <ImageList sx={{ width: '100%', height: '100%' }} cols={8} rowHeight={'auto'}>
                     {xcards.map((card) => (
                         <ImageListItem key={card.card_images[0].image_url}
-                            title={card.name} sx={{ cursor: 'pointer' }}>
-                            <img
-                                src={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format`}
-                                srcSet={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                alt={card.name}
-                                loading="lazy"
-                                onClick={() => handleClickOpen(card)}
-                            />
+                            title={card.name} sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(card)} >
+                            <div className={'hover14'} >
+                                <figure>
+                                    <img
+                                        src={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format`}
+                                        srcSet={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                        alt={card.name}
+                                        loading="lazy"
+                                    />
+                                </figure>
+                            </div>
                         </ImageListItem>
                     ))}
                 </ImageList>
 
-            </div>
+            </div >
 
         );
 
@@ -137,16 +145,7 @@ export const Overview = (props) => {
     else {
         return (
             <div style={{ fontSize: '1.5rem', margin: 100, textAlign: 'center' }}>
-                No cards found...
-                <div>
-                    <img
-                        src={'https://preview.redd.it/dphgrtotvx401.jpg?auto=webp&s=65ff9392e21aeae726b0f46f06fa9bfa3173a276'}
-                        srcSet={'https://preview.redd.it/dphgrtotvx401.jpg?auto=webp&s=65ff9392e21aeae726b0f46f06fa9bfa3173a276'}
-                        alt={'no cards found...'}
-                        loading="lazy"
-                    />
-                </div>
-
+                No cards found... 👾
             </div >
         );
     }
