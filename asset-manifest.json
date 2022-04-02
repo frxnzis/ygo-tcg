@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ygo-project/static/css/main.f2c930bd.css",
-    "main.js": "/ygo-project/static/js/main.cfbad080.js",
+    "main.css": "/ygo-project/static/css/main.39c1fdb0.css",
+    "main.js": "/ygo-project/static/js/main.7d9e6763.js",
     "static/js/787.fe95195a.chunk.js": "/ygo-project/static/js/787.fe95195a.chunk.js",
     "index.html": "/ygo-project/index.html",
-    "main.f2c930bd.css.map": "/ygo-project/static/css/main.f2c930bd.css.map",
-    "main.cfbad080.js.map": "/ygo-project/static/js/main.cfbad080.js.map",
+    "main.39c1fdb0.css.map": "/ygo-project/static/css/main.39c1fdb0.css.map",
+    "main.7d9e6763.js.map": "/ygo-project/static/js/main.7d9e6763.js.map",
     "787.fe95195a.chunk.js.map": "/ygo-project/static/js/787.fe95195a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f2c930bd.css",
-    "static/js/main.cfbad080.js"
+    "static/css/main.39c1fdb0.css",
+    "static/js/main.7d9e6763.js"
   ]
 }
