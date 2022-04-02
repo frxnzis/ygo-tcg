@@ -16,7 +16,7 @@ const Search = styled('div')(({ theme }) => ({
     },
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(40),
+        marginLeft: 'auto',
         marginRight: 'auto',
         width: 400,
     },
@@ -101,14 +101,13 @@ export const MainNavbar = (props) => {
                         <MenuIcon />
                     </IconButton>
                     */}
-                    <Typography variant="h6">
-                        Yu-Gi-Oh! Project
-                    </Typography>
+
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
+                            paddingX={'auto'}
                             onChange={handleChange}
                             placeholder="Search a card…"
                             inputProps={{ 'aria-label': 'search' }}

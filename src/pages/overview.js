@@ -4,6 +4,9 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
 import '../App.scss';
 
 import Slide from '@mui/material/Slide';
@@ -19,6 +22,9 @@ const Transition2 = forwardRef(function Transition(props, ref) {
 });
 
 export const Overview = (props) => {
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.up('sm'));
 
     const [cards, setCards] = useState([]);
     const [open, setOpen] = useState(false);
@@ -60,7 +66,7 @@ export const Overview = (props) => {
                     fullWidth={true}
                     maxWidth={'lg'}
                     open={open}
-                    TransitionComponent={Transition}
+                    TransitionComponent={Transition2}
                     keepMounted
                     onClose={handleClose}
                     PaperProps={{
@@ -73,8 +79,8 @@ export const Overview = (props) => {
                     }}
                 >
                     {/* CARD INFO */}
-                    <DialogContent className={'row'} variant="outlined">
-                        <div className={'col-12 col-md-4 text-center'} sx={{ cursor: 'pointer' }}>
+                    <DialogContent className={'row m-0 p-0'} variant="outlined">
+                        <div className={'col-12 col-md-4 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
                             {/* CARD IMAGE */}
                             <img
                                 src={`${currentCard?.card_images[currentImg]?.image_url}?w=164&h=164&fit=crop&auto=format`}
@@ -129,8 +135,6 @@ export const Overview = (props) => {
                                 : null
                             }
 
-
-
                             {/* CARD DESCRIPTION */}
                             <DialogContentText
                                 sx={{
@@ -155,7 +159,10 @@ export const Overview = (props) => {
                 </Dialog>
 
                 {/* CARDS LIST */}
-                <ImageList sx={{ margin: 0, padding: 0, maxWidth: 'auto', width: '100%' }} cols={6} rowHeight={'auto'}>
+                <ImageList
+                    sx={{ margin: 0, padding: 0, maxWidth: 'auto', width: '100%' }}
+                    variant="quilted" cols={isMobile ? 6 : 1} gap={8}
+                    rowHeight={'auto'}>
                     {xcards.map((card) => (
                         <ImageListItem key={card.card_images[0].image_url}
                             title={card.name} sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(card)} >
@@ -180,7 +187,7 @@ export const Overview = (props) => {
     }
     else {
         return (
-            <div style={{ fontSize: '1.5rem', margin: 100, textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', fontStyle: 'italic', margin: 100, textAlign: 'center' }}>
                 No cards found... 👾
             </div >
         );
