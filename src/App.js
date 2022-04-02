@@ -3,7 +3,7 @@ import { MainNavbar } from './components/main-navbar';
 import { Overview } from './pages/overview'
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import './App.css';
+import './App.scss';
 
 const MainLayoutRoot = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
