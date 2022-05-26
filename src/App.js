@@ -3,16 +3,16 @@ import { MainNavbar } from './components/main-navbar';
 import { Overview } from './pages/overview'
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import './App.css';
+import './App.scss';
 
 const MainLayoutRoot = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: '#efefef',
   height: '100%',
   paddingTop: 0
 }));
 
 const ContentLayout = styled('div')(({ theme }) => ({
-
+  height: '100%',
   margin: 40
 }));
 
