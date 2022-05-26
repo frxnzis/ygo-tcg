@@ -6,6 +6,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import LanguageIcon from '@mui/icons-material/Language';
+import IconButton from '@mui/material/IconButton';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -17,7 +22,7 @@ const Search = styled('div')(({ theme }) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: 'auto',
-        marginRight: 'auto',
+        marginRight: 0,
         width: 400,
     },
     textAlign: 'center'
@@ -56,6 +61,8 @@ const Name = createContext();
 export const MainNavbar = (props) => {
 
     const [search, setSearch] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [language, setLanguage] = useState('');
 
     const sendData = (data) => {
         props.parentCallback(data);
@@ -63,8 +70,9 @@ export const MainNavbar = (props) => {
 
     useEffect(() => {
         if (search) {
+            const lang = language ? '&language=' + language : '';
             // GET request using fetch with error handling
-            fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=' + search)
+            fetch('https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=' + search + lang)
                 .then(async response => {
                     const data = await response.json();
                     sendData(data);
@@ -86,6 +94,14 @@ export const MainNavbar = (props) => {
         const input = event.target.value;
         setSearch(input);
     }
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -113,6 +129,40 @@ export const MainNavbar = (props) => {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
+                    <FilterAltIcon sx={{ marginLeft: 1, marginRight: 'auto' }} />
+
+                    <IconButton
+                        size="small"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                    >
+                        <LanguageIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={() => { setLanguage(''); setAnchorEl(null); }}>English</MenuItem>
+                        <MenuItem onClick={() => { setLanguage('it'); setAnchorEl(null); }}>Italian</MenuItem>
+                        <MenuItem onClick={() => { setLanguage('fr'); setAnchorEl(null); }}>French</MenuItem>
+                        <MenuItem onClick={() => { setLanguage('de'); setAnchorEl(null); }}>German</MenuItem>
+                        <MenuItem onClick={() => { setLanguage('pt'); setAnchorEl(null); }}>Portuguese</MenuItem>
+                    </Menu>
+
                 </Toolbar>
             </AppBar>
         </Box >
