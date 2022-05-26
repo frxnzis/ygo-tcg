@@ -6,8 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import '../App.scss';
+import TablePagination from '@mui/material/TablePagination';
 
 import Slide from '@mui/material/Slide';
 import Zoom from '@mui/material/Zoom';
@@ -30,6 +32,18 @@ export const Overview = (props) => {
     const [open, setOpen] = useState(false);
     const [currentCard, setCurrentCard] = useState();
     const [currentImg, setCurrentImg] = useState(0);
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(12);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
     const handleClickOpen = (card) => {
         setCurrentCard(card);
@@ -57,7 +71,7 @@ export const Overview = (props) => {
 
     if (cards.length > 0) {
 
-        const xcards = cards.slice(0, 24);
+        const xcards = cards.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
         return (
             <div className={'m-0 p-0'}>
@@ -81,6 +95,7 @@ export const Overview = (props) => {
                     {/* CARD INFO */}
                     <DialogContent className={'row m-0 p-0'} variant="outlined">
                         <div className={'col-12 col-md-4 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
+
                             {/* CARD IMAGE */}
                             <img
                                 src={`${currentCard?.card_images[currentImg]?.image_url}?w=164&h=164&fit=crop&auto=format`}
@@ -93,30 +108,31 @@ export const Overview = (props) => {
                                 title={currentCard?.card_images?.length > 1 ? 'Click to change image' : ''}
                                 onClick={() => handleClickImage()}
                             />
+
                         </div>
                         <div className={'col-12 col-md-8 text-left'}>
 
                             {/* CARD NAME */}
                             <DialogContentText
                                 sx={{
-                                    fontSize: '1.45rem', margin: 1, borderRadius: '10px', paddingY: 1, paddingX: 2,
-                                    border: '1px solid #404040', color: 'white', background: '#00000099',
+                                    fontSize: '1.45rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, cursor: 'default',
+                                    border: '1px solid #404040', borderRadius: '10px', color: 'white', background: '#00000099',
                                 }}>
-                                <b>{currentCard?.name}</b>
+                                <b title='Card Name'>{currentCard?.name}</b>
                             </DialogContentText>
 
                             {/* CARD TYPE, RACE, ATTRIBUTE & LEVEL*/}
                             <DialogContentText
                                 sx={{
                                     fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
-                                    border: '1px solid #404040', color: 'white', background: '#00000099',
+                                    border: '1px solid #404040', color: 'white', background: '#00000099', cursor: 'default'
                                 }}>
-                                🔹 {currentCard?.type} &nbsp;
-                                🔸 {currentCard?.race} &nbsp;&nbsp;
-                                <b>{currentCard?.attribute ? '✧ ' : ''}</b>
-                                {currentCard?.attribute ? currentCard.attribute : ''}
-                                &nbsp; <b>{currentCard?.level > 0 ? '​​​​ ​​​​ ​✪ ​' : ''}</b>
-                                {currentCard?.level > 0 ? currentCard.level : ''}
+                                <span title='Card Type'>🔹 {currentCard?.type} </span> &nbsp;
+                                <span title='Card Race'>🔸 {currentCard?.race} </span> &nbsp;
+                                <span title='Card Attribute'>{currentCard?.attribute ? '✧ ' : ''}
+                                    {currentCard?.attribute ? currentCard.attribute : ''} </span>
+                                <span title='Card Level'>{currentCard?.level > 0 ? '​​​​ ​​​​ ​✪ ​' : ''}
+                                    {currentCard?.level > 0 ? currentCard.level : ''}</span>
                             </DialogContentText>
 
                             {/* CARD ATK-DEF & SCALE */}
@@ -124,12 +140,11 @@ export const Overview = (props) => {
                                 <DialogContentText
                                     sx={{
                                         fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
-                                        border: '1px solid #404040', color: 'white', background: '#00000099',
+                                        border: '1px solid #404040', color: 'white', background: '#00000099', cursor: 'default'
                                     }}>
-                                    <b>  {`⚔️ ${currentCard?.atk}`}</b> &nbsp;
-                                    <b>{currentCard?.def >= 0 ? ` ​/ ​ 🛡 ${currentCard.def}` : ''}</b>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <b>{currentCard?.scale >= 0 ? `◆ ${currentCard.scale} ⇌ ${currentCard.scale} ◇` : ''}</b>
+                                    <b title='Card Attack'>  {` ​ATK ${currentCard?.atk}`}</b> &nbsp;
+                                    <b title='Card Defense'>{currentCard?.def >= 0 ? `| ​ DEF ${currentCard.def} ​ ​` : ''}</b>
+                                    <b title='Card Pendulum Scale'>{currentCard?.scale >= 0 ? `|​ ​ ◆ ​ ${currentCard.scale} ​ ◇​ ​ ` : ''}</b>
 
                                 </DialogContentText>
                                 : null
@@ -139,19 +154,19 @@ export const Overview = (props) => {
                             <DialogContentText
                                 sx={{
                                     fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
-                                    border: '1px solid #404040', color: 'white', background: '#00000099',
+                                    border: '1px solid #404040', color: 'white', background: '#00000099', cursor: 'default'
                                 }}>
-                                {currentCard?.desc}
+                                <span title='Card Description'> {currentCard?.desc} </span>
                             </DialogContentText>
 
                             {/* CARD ID & ARCHETYPE */}
                             <DialogContentText
                                 sx={{
                                     fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
-                                    border: '1px solid #404040', color: 'white', background: '#00000099',
+                                    border: '1px solid #404040', color: 'white', background: '#00000099', cursor: 'default',
                                 }}>
-                                {`ID: ${currentCard?.id}`} &nbsp;&nbsp;&nbsp;
-                                {currentCard?.archetype ? `◐ Archetype: ${currentCard?.archetype}` : ''}
+                                <span title='Card ID'> {` ​ID: ${currentCard?.card_images[currentImg]?.id}`} </span> &nbsp;
+                                <span title='Card Archetype'> {currentCard?.archetype ? `◐ ${currentCard?.archetype}` : ''} </span>
                             </DialogContentText>
 
                         </div>
@@ -178,7 +193,23 @@ export const Overview = (props) => {
                             </div>
                         </ImageListItem>
                     ))}
+
                 </ImageList>
+
+                <Box className={'row m-0 p-0'} sx={{ width: '100%', padding: 0 }}>
+                    <TablePagination
+                        sx={{ color: "#5d5d5d", marginTop: 3 }}
+                        component="div"
+                        count={cards.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        rowsPerPageOptions={[12, 24, 36, 100]}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        labelRowsPerPage='Cards per page'
+                    />
+                </Box>
+
 
             </div >
 
