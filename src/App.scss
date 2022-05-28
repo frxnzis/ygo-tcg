@@ -46,6 +46,7 @@
 /* Shine */
 .hover14 figure {
 	position: relative;
+  cursor: pointer;
 }
 .hover14 figure::before {
 	position: absolute;
@@ -60,10 +61,12 @@
 	background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
 	-webkit-transform: skewX(5deg);
 	transform: skewX(-25deg);
+  cursor: pointer;
 }
 .hover14 figure:hover::before {
 	-webkit-animation: shine 1s;
 	animation: shine .8s;
+  cursor: pointer;
 }
 @-webkit-keyframes shine {
 	100% {

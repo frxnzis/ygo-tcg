@@ -10,10 +10,12 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import '../App.scss';
 import TablePagination from '@mui/material/TablePagination';
+import Masonry from '@mui/lab/Masonry';
 
 import Slide from '@mui/material/Slide';
 import Zoom from '@mui/material/Zoom';
 import Fade from '@mui/material/Fade';
+import { Container } from '@mui/material';
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Zoom style={{ transitionDelay: '1ms' }} ref={ref} {...props} />;
@@ -28,13 +30,15 @@ export const Overview = (props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up('sm'));
 
+    const rowsPerPageOptions = [12, 24, 36, 100]
+
     const [cards, setCards] = useState([]);
     const [open, setOpen] = useState(false);
     const [currentCard, setCurrentCard] = useState();
     const [currentImg, setCurrentImg] = useState(0);
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(12);
+    const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[1]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -64,9 +68,13 @@ export const Overview = (props) => {
     }
 
     useEffect(() => {
-        setCards(
-            Array.isArray(props.cardsSearch?.data) ? props.cardsSearch.data : []
-        );
+        if (Array.isArray(props.cardsSearch?.data)) {
+            setCards(props.cardsSearch.data);
+            setPage(0);
+        } else {
+            setCards([]);
+        }
+
     }, [props.cardsSearch])
 
     if (cards.length > 0) {
@@ -94,7 +102,7 @@ export const Overview = (props) => {
                 >
                     {/* CARD INFO */}
                     <DialogContent className={'row m-0 p-0'} variant="outlined">
-                        <div className={'col-12 col-md-4 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
+                        <div className={'col-12 col-lg-4 col-md-6 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
 
                             {/* CARD IMAGE */}
                             <img
@@ -110,7 +118,7 @@ export const Overview = (props) => {
                             />
 
                         </div>
-                        <div className={'col-12 col-md-8 text-left'}>
+                        <div className={'col-12 col-lg-8 col-md-6 text-left'}>
 
                             {/* CARD NAME */}
                             <DialogContentText
@@ -174,42 +182,43 @@ export const Overview = (props) => {
                 </Dialog>
 
                 {/* CARDS LIST */}
-                <ImageList
-                    sx={{ margin: 0, padding: 0, maxWidth: 'auto', width: '100%' }}
-                    variant="quilted" cols={isMobile ? 6 : 1} gap={8}
-                    rowHeight={'auto'}>
-                    {xcards.map((card) => (
-                        <ImageListItem key={card.card_images[0].image_url}
-                            title={card.name} sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(card)} >
-                            <div className={'hover14'} >
-                                <figure>
+                <Box sx={{ padding: 0, margin: 0 }}>
+                    <Masonry columns={{ xs: 3, sm: 4, md: 6, lg: 8, xl: 9 }}
+                        spacing={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 3 }}>
+                        {xcards.map((card, index) => (
+                            <div className={'hover14'} key={index}>
+                                <figure onClick={() => handleClickOpen(card)}>
                                     <img
                                         src={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format`}
                                         srcSet={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                         alt={card.name}
                                         loading="lazy"
+                                        style={{
+                                            borderBottomLeftRadius: 4,
+                                            borderBottomRightRadius: 4,
+                                            display: 'block',
+                                            width: '100%',
+                                            cursor: 'pointer !important'
+                                        }}
                                     />
                                 </figure>
                             </div>
-                        </ImageListItem>
-                    ))}
+                        ))}
+                    </Masonry>
 
-                </ImageList>
-
-                <Box className={'row m-0 p-0'} sx={{ width: '100%', padding: 0 }}>
                     <TablePagination
-                        sx={{ color: "#5d5d5d", marginTop: 3 }}
+                        sx={{ color: "#565656" }}
                         component="div"
                         count={cards.length}
                         page={page}
                         onPageChange={handleChangePage}
                         rowsPerPage={rowsPerPage}
-                        rowsPerPageOptions={[12, 24, 36, 100]}
+                        rowsPerPageOptions={rowsPerPageOptions}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                         labelRowsPerPage='Cards per page'
                     />
-                </Box>
 
+                </Box>
 
             </div >
 
