@@ -88,7 +88,7 @@ export const MainNavbar = (props) => {
                     console.error('There was an error!', error);
                 });
         }
-    }, [search]);
+    }, [search, language]);
 
     const handleChange = (event) => {
         const input = event.target.value;
