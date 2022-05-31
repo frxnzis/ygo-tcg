@@ -87,3 +87,24 @@
    border: '1px solid transparent';
    z-index: 0;
 }
+
+img {
+  -webkit-animation: flip 3s;
+  animation: flip 2s;
+}
+@-webkit-keyframes flip {
+  from {
+    transform: rotateY(90deg)
+  }
+  to {
+    transform: rotateY(0deg)
+  }
+}
+@keyframes flip {
+  from {
+    transform: rotateY(90deg)
+  }
+  to {
+    transform: rotateY(0deg)
+  }
+}
