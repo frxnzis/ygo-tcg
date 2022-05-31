@@ -40,6 +40,8 @@ export const Overview = (props) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[1]);
 
+    const [dialogHeight, setDialogHeight] = useState('auto');
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -77,6 +79,13 @@ export const Overview = (props) => {
 
     }, [props.cardsSearch])
 
+    const renderImg = () => {
+        const cardImg = document.querySelector("#cardImage");
+        const imgHeight = cardImg.clientHeight;
+        setDialogHeight(imgHeight + 3);
+    };
+
+
     if (cards.length > 0) {
 
         const xcards = cards.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
@@ -91,30 +100,34 @@ export const Overview = (props) => {
                     TransitionComponent={Transition2}
                     keepMounted
                     onClose={handleClose}
+                    scroll={'paper'}
                     PaperProps={{
                         style: {
                             backgroundColor: '#30303099',
                             boxShadow: 'none',
                             borderRadius: '15px',
-                            border: '1px solid #555555'
+                            border: '1px solid #555555',
+                            maxHeight: dialogHeight
                         },
                     }}
                 >
                     {/* CARD INFO */}
                     <DialogContent className={'row m-0 p-0'} variant="outlined">
-                        <div className={'col-12 col-lg-4 col-md-6 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
+                        <div className={'cardImage col-12 col-lg-4 col-md-6 text-center m-0 p-0'} sx={{ cursor: 'pointer' }}>
 
                             {/* CARD IMAGE */}
                             <img
+                                id="cardImage"
                                 src={`${currentCard?.card_images[currentImg]?.image_url}?w=164&h=164&fit=crop&auto=format`}
                                 srcSet={`${currentCard?.card_images[currentImg]?.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                 alt={currentCard?.name}
-                                height={'100%'}
+                                height={'auto'}
                                 width={'100%'}
-                                loading="lazy"
+                                loading="eager"
                                 style={currentCard?.card_images?.length > 1 ? { cursor: "pointer" } : null}
                                 title={currentCard?.card_images?.length > 1 ? 'Click to change image' : ''}
                                 onClick={() => handleClickImage()}
+                                onLoad={() => renderImg()}
                             />
 
                         </div>
@@ -194,8 +207,10 @@ export const Overview = (props) => {
                                         alt={card.name}
                                         loading="lazy"
                                         style={{
-                                            borderBottomLeftRadius: 4,
-                                            borderBottomRightRadius: 4,
+                                            borderTopLeftRadius: 3,
+                                            borderTopRightRadius: 3,
+                                            borderBottomLeftRadius: 3,
+                                            borderBottomRightRadius: 3,
                                             display: 'block',
                                             width: '100%',
                                             cursor: 'pointer !important'
@@ -215,7 +230,7 @@ export const Overview = (props) => {
                         rowsPerPage={rowsPerPage}
                         rowsPerPageOptions={rowsPerPageOptions}
                         onRowsPerPageChange={handleChangeRowsPerPage}
-                        labelRowsPerPage='Cards per page'
+                        labelRowsPerPage='Cards'
                     />
 
                 </Box>
