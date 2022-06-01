@@ -90,6 +90,14 @@ export const Overview = (props) => {
 
         const xcards = cards.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
+        const checkAtk = (card) => {
+            return card?.misc_info[0]?.question_atk === 1 ? '?' : card?.atk;
+        }
+
+        const checkDef = (card) => {
+            return card?.misc_info[0]?.question_def === 1 ? '?' : card?.def;
+        }
+
         return (
             <div className={'m-0 p-0'}>
 
@@ -156,16 +164,17 @@ export const Overview = (props) => {
                                     {currentCard?.level > 0 ? currentCard.level : ''}</span>
                             </DialogContentText>
 
-                            {/* CARD ATK-DEF & SCALE */}
+                            {/* CARD ATK-DEF, SCALE, LINK */}
                             {currentCard?.atk >= 0 ?
                                 <DialogContentText
                                     sx={{
                                         fontSize: '1.2rem', margin: 1, marginTop: 2, paddingY: 1, paddingX: 2, borderRadius: '10px',
                                         border: '1px solid #404040', color: 'white', background: '#00000099', cursor: 'default'
                                     }}>
-                                    <b title='Card Attack'>  {` ​ATK ${currentCard?.atk}`}</b> &nbsp;
-                                    <b title='Card Defense'>{currentCard?.def >= 0 ? `| ​ DEF ${currentCard.def} ​ ​` : ''}</b>
-                                    <b title='Card Pendulum Scale'>{currentCard?.scale >= 0 ? `|​ ​ ◆ ​ ${currentCard.scale} ​ ◇​ ​ ` : ''}</b>
+                                    <b title='Card Attack'>  {` ​ATK ${checkAtk(currentCard)}`}</b> &nbsp;
+                                    <b title='Card Defense'>{currentCard?.def >= 0 ? `| ​ DEF ${checkDef(currentCard)} ​ ​` : ''}</b>
+                                    <b title='Card Pendulum Scale'>{currentCard?.scale >= 0 ? `|​ ​ ◆ ​ ${currentCard.scale} ​ ​ ​` : ''}</b>
+                                    <b title='Card Link Value'>{currentCard?.linkval > 0 ? `|​ ​ ❖ ​ ${currentCard.linkval} ​ ​ ` : ''}</b>
 
                                 </DialogContentText>
                                 : null
@@ -205,7 +214,7 @@ export const Overview = (props) => {
                                         src={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format`}
                                         srcSet={`${card.card_images[0]?.image_url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                         alt={card.name}
-                                        loading="lazy"
+                                        loading="eager"
                                         style={{
                                             borderTopLeftRadius: 3,
                                             borderTopRightRadius: 3,
