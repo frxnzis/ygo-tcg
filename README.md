@@ -1,6 +1,6 @@
 # YGO Project
 
-YGO Project is a web application that focuses on improving the UI and UX of Yu-Gi-Oh! cards using the [YGOPRODECK](https://db.ygoprodeck.com/api-guide/) api.
+[YGO Project](https://paanchoz.github.io/ygo-project/) is a web application that focuses on improving the UI and UX of Yu-Gi-Oh! cards using the [YGOPRODECK](https://db.ygoprodeck.com/api-guide/) api.
 
 ## Installation
 
