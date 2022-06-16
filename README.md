@@ -4,7 +4,7 @@ YGO Project is a web application that focuses on improving the UI and UX of Yu-G
 
 ## Installation
 
-Use the package manager [npm](https://nodejs.org/) to install foobar.
+Use the package manager [npm](https://nodejs.org/) to install node packages.
 
 ```bash
 npm install
