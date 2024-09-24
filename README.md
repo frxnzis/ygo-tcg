@@ -1,6 +1,6 @@
 # YGO Project
 
-[YGO Project](https://frafranzisco.github.io/ygo-project/) is a personal web app project that focus on improve the UI and UX of a typical Yu-Gi-Oh's cards finder using the [YGOPRODECK](https://db.ygoprodeck.com/api-guide/) api.
+[YGO Project](https://frxnzis.github.io/ygo-project/) is a personal web app project that focus on improve the UI and UX of a typical Yu-Gi-Oh's cards finder using the [YGOPRODECK](https://db.ygoprodeck.com/api-guide/) api.
 
 ## Installation
 
